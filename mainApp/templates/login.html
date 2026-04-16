@@ -1,0 +1,167 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+<title>Mshop | Login Page</title>
+{% endblock %}
+
+{% block body %}
+
+<style>
+    body {
+        background:
+            linear-gradient(rgba(13, 110, 253, 0.6), rgba(102, 16, 242, 0.7)),
+            url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        overflow-x: hidden;
+    }
+
+    /* Center container */
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Glass Card */
+    .login-card {
+        max-width: 450px;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Remove white box */
+    .form-section {
+        padding: 40px;
+        background: transparent;
+        /* IMPORTANT */
+        border-radius: 20px;
+    }
+
+    /* Title */
+    .form-title {
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+
+    /* Inputs */
+    .form-control {
+        border-radius: 25px;
+        padding: 12px 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        transition: 0.3s;
+    }
+
+    /* Placeholder color */
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Focus effect */
+    .form-control:focus {
+        border-color: #fff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+    }
+
+    /* Button */
+    .btn-login {
+        background: linear-gradient(45deg, #ffffff, #e0e0e0);
+        color: #333;
+        border: none;
+        border-radius: 30px;
+        padding: 12px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .btn-login:hover {
+        transform: scale(1.05);
+        background: #fff;
+    }
+
+    /* Links */
+    .links a {
+        font-size: 14px;
+        color: #fff;
+        opacity: 0.8;
+        transition: 0.3s;
+    }
+
+    .links a:hover {
+        opacity: 1;
+        text-decoration: underline;
+    }
+
+    /* Alert */
+    .alert {
+        border-radius: 10px;
+        background: rgba(255, 0, 0, 0.2);
+        color: #fff;
+        border: none;
+    }
+</style>
+
+<br><br><br>
+<div class="container login-container">
+    <div class="row login-card w-100">
+
+        <!-- ONLY FORM (CENTERED) -->
+        <div class="col-12">
+            <div class="form-section">
+
+                <h4 class="form-title text-center">🔐 Welcome Back</h4>
+
+                {% for i in messages %}
+                <div class="alert alert-danger">
+                    {{i}}
+                </div>
+                {% endfor %}
+
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">User Name</label>
+                        <input type="text" class="form-control rounded-pill" name="username"
+                            placeholder="Enter Username" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Password</label>
+                        <input type="password" class="form-control rounded-pill" name="password"
+                            placeholder="Enter Password" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-login text-white w-100 rounded-pill fw-bold">
+                        Login
+                    </button>
+
+                    
+
+                    <div class="d-flex justify-content-between mt-3 links">
+                        <!-- ✅ FORGOT PASSWORD FLOW -->
+                        <a href="{% url 'forget_password' %}">Forgot Password?</a>
+
+                        <!-- ✅ FIXED SIGNUP LINK -->
+                        <a href="{% url 'signup' %}">Create Account</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

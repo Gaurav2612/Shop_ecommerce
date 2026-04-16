@@ -1,0 +1,189 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+<title>Eshop | Shop Page</title>
+{% endblock %}
+
+{% block body %}
+
+<style>
+    body {
+        background-color: #f5f7fa;
+    }
+
+    .gradient {
+        background: linear-gradient(45deg, #0d6efd, #6610f2);
+    }
+
+    /* Sidebar */
+    .sidebar-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .list-group-item {
+        border: none;
+        transition: all 0.3s;
+        font-size: 14px;
+    }
+
+    .list-group-item:hover {
+        background: #0d6efd;
+        color: white;
+        padding-left: 20px;
+    }
+
+    /* Product Card */
+    .product-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: #fff;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        position: relative;
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .product-img {
+        height: 220px;
+        object-fit: cover;
+        transition: 0.3s;
+    }
+
+    .product-card:hover .product-img {
+        transform: scale(1.05);
+    }
+
+    /* Discount Badge */
+    .discount-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #dc3545;
+        color: white;
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 20px;
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .price {
+        font-size: 14px;
+    }
+
+    .btn-cart {
+        background: linear-gradient(45deg, #0d6efd, #6610f2);
+        border: none;
+        border-radius: 30px;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .btn-cart:hover {
+        background: linear-gradient(45deg, #6610f2, #0d6efd);
+        transform: scale(1.05);
+    }
+</style>
+
+<br><br><br>
+
+<div class="container-fluid mt-3">
+    <div class="row g-4">
+
+        <!-- Sidebar -->
+        <div class="col-lg-3 col-md-4">
+
+            <div class="sidebar-card mb-3">
+                <h6 class="gradient text-white text-center p-2">Main Category</h6>
+                <div class="list-group">
+                    <a href="/shop/All/{{SC}}/{{BR}}" class="list-group-item">All</a>
+                    {% for i in Maincategory %}
+                    <a href="/shop/{{i.name}}/{{SC}}/{{BR}}" class="list-group-item">{{i.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="sidebar-card mb-3">
+                <h6 class="gradient text-white text-center p-2">Sub Category</h6>
+                <div class="list-group">
+                    <a href="/shop/{{MC}}/All/{{BR}}" class="list-group-item">All</a>
+                    {% for i in Subcategory %}
+                    <a href="/shop/{{MC}}/{{i.name}}/{{BR}}" class="list-group-item">{{i.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h6 class="gradient text-white text-center p-2">Brand</h6>
+                <div class="list-group">
+                    <a href="/shop/{{MC}}/{{SC}}/All" class="list-group-item">All</a>
+                    {% for i in Brand %}
+                    <a href="/shop/{{MC}}/{{SC}}/{{i.name}}" class="list-group-item">{{i.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Products -->
+        <div class="col-lg-9 col-md-8">
+
+            <h5 class="gradient text-white text-center p-2 rounded mb-3">
+                🛒 Shop Products
+            </h5>
+
+            <div class="row">
+                {% for i in Products %}
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+
+                    <div class="product-card h-100">
+
+                        <!-- Discount Badge -->
+                        <div class="discount-badge">
+                            {{i.discount}}% OFF
+                        </div>
+
+                        {% if i.pic1 %}
+                        <img src="{{i.pic1.url}}" class="product-img w-100">
+                        {% else %}
+                        <img src="../static/images/noimagep.jpg" class="product-img w-100">
+                        {% endif %}
+
+                        <div class="card-body text-center">
+
+                            <h6 class="card-title">{{i.name}}</h6>
+
+                            <p class="price text-muted mb-1">
+                                <strike>&#8377;{{i.basePrice}}</strike>
+                                <span class="text-success fw-bold">&#8377;{{i.finalPrice}}</span>
+                            </p>
+
+                            <a href="/singleProduct/{{i.id}}/" 
+                               class="btn btn-cart w-100 mt-2">
+                               Add to Cart
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

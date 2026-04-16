@@ -1,0 +1,168 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>Eshop | Single Product</title>
+{% endblock %}
+
+{% block body %}
+
+<style>
+    body {
+        background: #f5f7fa;
+    }
+
+    .product-img {
+        height: 380px;
+        object-fit: contain;
+        transition: 0.4s ease;
+    }
+
+    .product-img:hover {
+        transform: scale(1.05);
+    }
+
+    .thumb-img {
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        opacity: 0.7;
+        border: 2px solid transparent;
+    }
+
+    .thumb-img:hover {
+        opacity: 1;
+        transform: scale(1.08);
+        border-color: #0d6efd;
+    }
+
+    .price-box h3 {
+        font-size: 2rem;
+    }
+
+    .card {
+        border-radius: 18px;
+    }
+
+    .info-box p {
+        margin-bottom: 6px;
+    }
+
+    .btn-premium {
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .btn-premium:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+
+</style>
+
+<br><br>
+
+<div class="container">
+
+    <div class="row g-5">
+
+        <!-- LEFT SIDE (IMAGES) -->
+        <div class="col-lg-5">
+
+            <div class="card shadow-sm p-3 bg-white">
+
+                <!-- MAIN IMAGE -->
+                <div class="text-center mb-3">
+                    <img id="mainImage" src="{{Product.pic1.url}}" class="product-img w-100">
+                </div>
+
+                <!-- THUMBNAILS -->
+                <div class="d-flex justify-content-between">
+                    <img src="{{Product.pic1.url}}" class="thumb-img w-100 me-2" onclick="changeImage(this)">
+                    <img src="{{Product.pic2.url}}" class="thumb-img w-100 me-2" onclick="changeImage(this)">
+                    <img src="{{Product.pic3.url}}" class="thumb-img w-100 me-2" onclick="changeImage(this)">
+                    <img src="{{Product.pic4.url}}" class="thumb-img w-100" onclick="changeImage(this)">
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE (DETAILS) -->
+        <div class="col-lg-7">
+
+            <div class="card shadow p-4 bg-white">
+
+                <!-- TITLE -->
+                <h3 class="fw-bold">{{Product.name}}</h3>
+                <p class="text-muted mb-2">{{Product.brand}}</p>
+
+                <!-- PRICE -->
+                <div class="price-box mb-3">
+                    <span class="text-muted text-decoration-line-through">
+                        ₹{{Product.basePrice}}
+                    </span>
+
+                    <span class="badge bg-danger ms-2">
+                        {{Product.discount}}% OFF
+                    </span>
+
+                    <h3 class="text-success fw-bold mt-2">
+                        ₹{{Product.finalPrice}}
+                    </h3>
+                </div>
+
+                <hr>
+
+                <!-- PRODUCT INFO -->
+                <div class="info-box mb-3">
+                    <p><strong>Category:</strong> {{Product.maincategory}} / {{Product.subcategory}}</p>
+                    <p><strong>Color:</strong> {{Product.color}}</p>
+                    <p><strong>Size:</strong> {{Product.size}}</p>
+                    <p>
+                        <strong>Stock:</strong> 
+                        <span class="text-success fw-bold">{{Product.stock}}</span>
+                    </p>
+                </div>
+
+                <!-- DESCRIPTION -->
+                <div class="mb-4">
+                    <h6 class="fw-bold">Product Description</h6>
+                    <p class="text-muted small">{{Product.description}}</p>
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="d-flex gap-3">
+
+                    <a href="/add-to-cart/{{Product.id}}/" 
+                       class="btn btn-dark btn-premium flex-fill">
+                        🛒 Add to Cart
+                    </a>
+
+                    <a href="/add-to-Wishlist/{{Product.id}}/" 
+                       class="btn btn-outline-danger btn-premium flex-fill">
+                        ❤️ Wishlist
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JS for Image Change -->
+<script>
+    function changeImage(element) {
+        document.getElementById("mainImage").src = element.src;
+    }
+</script>
+
+{% endblock %}

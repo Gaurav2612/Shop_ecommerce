@@ -1,0 +1,278 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>Eshop | Seller Profile</title>
+{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+    }
+
+    /* PROFILE CARD */
+    .profile-card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        transition: 0.3s;
+    }
+
+    .profile-card:hover {
+        transform: translateY(-5px);
+    }
+
+    /* IMAGE */
+    .profile-img {
+        height: 250px;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 3px solid rgba(255, 255, 255, 0.4);
+    }
+
+    /* TABLE STYLE */
+    .table {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .table th {
+        background: rgba(0, 0, 0, 0.4);
+        color: #fff;
+    }
+
+    .table td {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* BUTTON */
+    .btn-primary {
+        border-radius: 30px;
+        background: linear-gradient(45deg, #00c6ff, #0072ff);
+        border: none;
+    }
+
+    .btn-primary:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(0, 114, 255, 0.5);
+    }
+
+    /* PRODUCT HEADER */
+    .product-header {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        color: #fff;
+    }
+
+    /* PRODUCT TABLE */
+    .table-responsive table {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+    }
+
+    .table-hover tbody tr:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transition: 0.3s;
+    }
+
+    /* IMAGE GRID */
+    .product-img {
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    .product-img:hover {
+        transform: scale(1.1);
+    }
+
+    /* ICONS */
+    .material-icons {
+        transition: 0.3s;
+    }
+
+    .material-icons:hover {
+        transform: scale(1.2);
+    }
+
+    .profile-img {
+        width: 220px;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 50%;
+        /* perfect circle */
+        border: 4px solid transparent;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        transition: 0.3s ease;
+        background: linear-gradient(#000, #000) padding-box, linear-gradient(45deg, #00c6ff, #0072ff) border-box;
+
+    }
+
+    /* Hover effect */
+    .profile-img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    }
+</style>
+
+<br><br><br>
+
+<div class="container mt-4">
+
+    <!-- PROFILE SECTION -->
+    <div class="row profile-card shadow rounded p-3 mb-4">
+
+        <!-- IMAGE -->
+        <div class="col-md-4 text-center">
+            {% if User.pic %}
+            <img src="{{ User.pic.url }}" class="profile-img my-5">
+            {% else %}
+            <img src="{% static 'images/noimage.jpg' %}" class="profile-img my-5">
+            {% endif %}
+        </div>
+
+        <!-- DETAILS -->
+        <div class="col-md-8">
+            <h4 class="text-center mb-3 fw-bold">Seller Profile</h4>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>Name</th>
+                    <td>{{User.name}}</td>
+                </tr>
+                <tr>
+                    <th>Username</th>
+                    <td>{{User.username}}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{User.email}}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{User.phone}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{User.addressline1}}, {{User.addressline2}}, {{User.addressline3}}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{User.city}}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{User.state}}</td>
+                </tr>
+                <tr>
+                    <th>Pin</th>
+                    <td>{{User.pin}}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <a href="/updateprofile" class="btn btn-primary w-100">
+                            Update Profile
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- PRODUCT SECTION -->
+    <h5 class="product-header text-center p-2 rounded">
+        My Products
+        <a href="/add-product" class="text-light ms-2">
+            <i class="material-icons">add</i>
+        </a>
+    </h5>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Images</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                    <th>Size</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in Products %}
+                <tr>
+
+                    <!-- MULTIPLE IMAGES -->
+                    <td>
+                        <div class="d-flex gap-1 flex-wrap justify-content-center">
+
+                            {% if i.pic1 %}
+                            <img src="{{ i.pic1.url }}" width="50" height="50" class="product-img">
+                            {% endif %}
+
+                            {% if i.pic2 %}
+                            <img src="{{ i.pic2.url }}" width="50" height="50" class="product-img"">
+                            {% endif %}
+
+                            {% if i.pic3 %}
+                                <img src=" {{ i.pic3.url }}" width="50" height="50" class="product-img">
+                            {% endif %}
+
+                            {% if i.pic4 %}
+                            <img src="{{ i.pic4.url }}" width="50" height="50" class="product-img"">
+                            {% endif %}
+
+                            {% if not i.pic1 and not i.pic2 and not i.pic3 and not i.pic4 %}
+                                <img src=" {% static 'images/noimage.jpg' %}" width="50" height="50">
+                            {% endif %}
+
+                        </div>
+                    </td>
+
+                    <td>{{i.name}}</td>
+                    <td>{{i.maincategory}} / {{i.subcategory}}</td>
+                    <td>{{i.brand}}</td>
+                    <td>{{i.color}}</td>
+                    <td>{{i.size}}</td>
+                    <td>&#8377;{{i.finalPrice}}</td>
+                    <td>{{i.stock}}</td>
+
+                    <td>
+                        <a href="/update-Product/{{i.id}}" class="text-primary">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="/delete-Product/{{i.id}}" class="text-danger">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="10">No products available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

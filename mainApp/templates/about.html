@@ -1,0 +1,116 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load cart %}
+{% block title %}
+    <title>Eshop | About Page</title>
+{% endblock %}
+
+{% block body %}
+
+<style>
+    .about-title {
+        background: linear-gradient(45deg, #0d6efd, #6610f2);
+        color: white;
+        padding: 12px;
+        border-radius: 10px;
+        text-align: center;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    .accordion-item {
+        border: none;
+        margin-bottom: 15px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .accordion-button {
+        background: #f8f9fa;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .accordion-button:not(.collapsed) {
+        background: linear-gradient(45deg, #0d6efd, #6610f2);
+        color: white;
+    }
+
+    .accordion-button:focus {
+        box-shadow: none;
+    }
+
+    .accordion-body {
+        background: #ffffff;
+        line-height: 1.6;
+        font-size: 15px;
+    }
+
+    /* Hover effect */
+    .accordion-button:hover {
+        background: #e9ecef;
+    }
+
+    /* Icon rotation */
+    .accordion-button::after {
+        transition: transform 0.3s;
+    }
+
+    .accordion-button:not(.collapsed)::after {
+        transform: rotate(180deg);
+    }
+</style>
+
+<br><br><br>
+
+<div class="container mt-4">
+
+    <h4 class="about-title mb-4">📘 About E-Shop</h4>
+
+    <div class="accordion" id="accordionExample">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                    🛍 Who We Are
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>E-Shop</strong> is a modern online shopping platform where you can explore the latest products at the best prices. We focus on quality, affordability, and a smooth shopping experience for our customers.
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                    🚀 Our Mission
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Our mission is to provide customers with a seamless and enjoyable shopping experience by offering a wide range of products, secure payments, and fast delivery services.
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                    💡 Why Choose Us
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    We stand out by offering competitive prices, high-quality products, excellent customer support, and a user-friendly interface designed for modern users.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

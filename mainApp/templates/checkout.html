@@ -1,0 +1,154 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load cart %}
+{% block title %}
+    <title>Mshop | Checkout Page</title>
+{% endblock %}
+
+{% block body %}
+
+<style>
+    .card-custom {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .section-title {
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+    .profile-table th {
+        width: 40%;
+        color: #555;
+    }
+    .checkout-img {
+        height: 80px;
+        width: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .total-box {
+        font-size: 18px;
+        font-weight: 600;
+    }
+</style>
+
+<br><br><br>
+
+    <div class="container mt-4">
+    <div class="row g-4">
+
+        <!-- Profile Section -->
+        <div class="col-md-6">
+            <div class="card card-custom p-3">
+                <h5 class="text-center text-primary section-title mb-3">
+                    👤 Buyer Profile
+                </h5>
+
+                <table class="table profile-table">
+                    <tr><th>Name</th><td>{{User.name}}</td></tr>
+                    <tr><th>Username</th><td>{{User.username}}</td></tr>
+                    <tr><th>Email</th><td>{{User.email}}</td></tr>
+                    <tr><th>Phone</th><td>{{User.phone}}</td></tr>
+                    <tr><th>Address</th>
+                        <td>
+                            {{User.addressline1}},<br>
+                            {{User.addressline2}},<br>
+                            {{User.addressline3}}
+                        </td>
+                    </tr>
+                    <tr><th>City</th><td>{{User.city}}</td></tr>
+                    <tr><th>State</th><td>{{User.state}}</td></tr>
+                    <tr><th>Pin</th><td>{{User.pin}}</td></tr>
+                </table>
+
+                <a href="/updateprofile" class="btn btn-outline-primary w-100">
+                    ✏️ Update Profile
+                </a>
+            </div>
+        </div>
+
+        <!-- Checkout Section -->
+        <div class="col-md-6">
+            <div class="card card-custom p-3">
+                <h5 class="text-center text-success section-title mb-3">
+                    🛒 Order Summary
+                </h5>
+
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Item</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for i in Products %}
+                            <tr>
+                                <td>
+                                    {% if i.pic1 %}
+                                    <img src="{{i.pic1.url}}" class="checkout-img">
+                                    {% else %}
+                                    <img src="{% static 'images/noimage.jpg' %}" class="checkout-img">
+                                    {% endif %}
+                                </td>
+
+                                <td>{{i.name}}</td>
+                                <td>&#8377;{{i.finalPrice}}</td>
+                                <td>{{request|cartQty:i.id}}</td>
+                                <td>&#8377;{{request|cartTotal:i.id}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pricing -->
+                <table class="table mt-3">
+                    <tr class="total-box">
+                        <th>Total</th>
+                        <td>&#8377;{{Total}}</td>
+                    </tr>
+                    <tr>
+                        <th>Shipping</th>
+                        <td>&#8377;{{Shipping}}</td>
+                    </tr>
+                    <tr class="table-success total-box">
+                        <th>Final Amount</th>
+                        <td>&#8377;{{Final}}</td>
+                    </tr>
+                </table>
+
+                <!-- Payment -->
+                {% if request|showCheckButton:Final %}
+                <form action="/place_order/" method="POST" class="mt-3">
+                    {% csrf_token %}
+
+                    <label class="form-label fw-bold">Payment Mode</label>
+                    <select name="mode" class="form-select mb-3">
+                        <option value="COD">Cash on Delivery</option>
+                        <option value="Net Banking">UPI / Card / Net Banking</option>
+                    </select>
+
+                    <button class="btn btn-success w-100 py-2">
+                        🚀 Place Order
+                    </button>
+                </form>
+                {% else %}
+                <a href="/shop/All/All/All/" class="btn btn-danger w-100 mt-3">
+                    No Items in Cart! Shop Now
+                </a>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

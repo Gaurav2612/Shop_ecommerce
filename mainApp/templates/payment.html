@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Page</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .payment-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 350px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #2575fc;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #1a5edb;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="payment-box">
+    <h2>💳 Pay Now</h2>
+
+    <form action="/process-payment/" method="POST">
+        <!-- Django CSRF Token -->
+        {% csrf_token %}
+
+        <input type="text" name="name" placeholder="Card Holder Name" required>
+        <input type="text" name="card_number" placeholder="Card Number" required>
+        <input type="text" name="expiry" placeholder="MM/YY" required>
+        <input type="text" name="cvv" placeholder="CVV" required>
+        <input type="number" name="amount" placeholder="Amount (₹)" required>
+
+        <button type="submit" class="btn">Pay Now</button>
+    </form>
+</div>
+
+</body>
+</html>

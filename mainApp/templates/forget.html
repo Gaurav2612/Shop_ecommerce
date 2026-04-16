@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+<title>Mshop | Forgot Password</title>
+{% endblock %}
+
+{% block body %}
+<br><br>
+
+<div class="container">
+    <div class="row shadow-lg rounded overflow-hidden">
+
+        <!-- LEFT IMAGE -->
+        <div class="col-md-6 d-none d-md-block p-0">
+            <img src="{% static 'images/forget.avif' %}" 
+                 class="w-100 h-100 object-fit-cover">
+        </div>
+
+        <!-- RIGHT FORM -->
+        <div class="col-md-6 p-5 bg-white">
+
+            <h3 class="text-center mb-4 text-primary fw-bold">
+                Forgot Password 🔐
+            </h3>
+
+            {% for i in messages %}
+            <div class="alert alert-danger text-center">
+                {{ i }}
+            </div>
+            {% endfor %}
+
+            <!-- ✅ FIXED HERE -->
+            <form action="{% url 'forget_password' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Username</label>
+                    <input type="text" 
+                           class="form-control rounded-pill" 
+                           name="username" 
+                           placeholder="Enter your username" required>
+                </div>
+
+                <button type="submit" 
+                        class="btn btn-primary w-100 rounded-pill fw-bold">
+                    Send OTP
+                </button>
+
+                <div class="text-center mt-3">
+                    <!-- ✅ Better practice -->
+                    <a href="{% url 'login' %}" class="text-decoration-none">
+                        Back to Login
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

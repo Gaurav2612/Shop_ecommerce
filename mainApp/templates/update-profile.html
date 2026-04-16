@@ -1,0 +1,271 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>Eshop | Seller Profile</title>
+{% endblock %}
+
+{% block body %}
+
+<!-- =======================
+     Custom CSS Styling
+======================= -->
+<style>
+    /* ------------------------------
+   Card Styling (Container Shadow)
+------------------------------- */
+    .card.shadow-lg {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card.shadow-lg:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    /* ------------------------------
+   Profile Image Styling
+------------------------------- */
+    .profile-img {
+        width: 220px;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .profile-img:hover {
+        transform: scale(1.1);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ------------------------------
+   Overlay Effect on Profile Image
+------------------------------- */
+    .overlay {
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.25);
+        opacity: 0;
+        transition: 0.3s;
+    }
+
+    .position-relative:hover .overlay {
+        opacity: 1;
+    }
+
+    /* ------------------------------
+   Gradient Buttons Styling
+------------------------------- */
+    .btn-gradient {
+        background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+        color: #fff;
+        border: none;
+        font-weight: 600;
+        transition: 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .gradient-text {
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    -webkit-background-clip: text; /* For Chrome, Safari */
+    -webkit-text-fill-color: transparent; /* For Chrome, Safari */
+    background-clip: text; /* For Firefox */
+    color: transparent; /* Fallback */
+}
+
+    .btn-gradient:hover {
+        background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ------------------------------
+   Section Headings Styling
+------------------------------- */
+    h3.text-gradient {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+
+    h5 {
+        font-size: 1.1rem;
+    }
+
+    /* ------------------------------
+   Input Fields Styling
+------------------------------- */
+    .form-control {
+        border-radius: 50px;
+        padding: 0.8rem 1.5rem;
+        box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.05);
+        transition: 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #6a11cb;
+        box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);
+    }
+
+    /* ------------------------------
+   Alert Messages Styling
+------------------------------- */
+    .alert {
+        border-radius: 10px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    /* ------------------------------
+   Responsive Adjustments
+------------------------------- */
+    @media(max-width: 768px) {
+
+        .card .col-md-5,
+        .card .col-md-7 {
+            text-align: center;
+        }
+
+        .profile-img {
+            margin-bottom: 20px;
+        }
+    }
+</style>
+
+<!-- =======================
+     Seller Profile Container
+======================= -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <!-- ------------------------------
+                 Premium Card Container
+            ------------------------------- -->
+            <div class="card shadow-lg border-0 rounded-5 overflow-hidden">
+                <div class="row g-0">
+
+                    <!-- ------------------------------
+                         LEFT: Profile Image
+                    ------------------------------- -->
+                    <div class="col-md-5 bg-primary d-flex align-items-center justify-content-center p-4">
+                        <div class="position-relative text-center">
+                            {% if User.pic %}
+                            <img src="{{ User.pic.url }}"
+                                class="rounded-circle border border-white shadow-lg profile-img"
+                                style="width: 220px; height: 220px; object-fit: cover;" alt="Seller Image">
+                            {% else %}
+                            <img src="{% static 'images/noimage.jpg' %}"
+                                class="rounded-circle border border-white shadow-lg profile-img"
+                                style="width: 220px; height: 220px; object-fit: cover;" alt="No Image">
+                            {% endif %}
+                            <!-- Overlay Effect -->
+                            <div class="overlay position-absolute top-0 start-0 w-100 h-100 rounded-circle"></div>
+                        </div>
+                    </div>
+
+                    <!-- ------------------------------
+                         RIGHT: Profile Update Form
+                    ------------------------------- -->
+                    <div class="col-md-7 bg-light p-5">
+                        <!-- Heading -->
+                        <h3 class="text-gradient fw-bold mb-4 text-center gradient-text">
+                            Update Seller Profile
+                        </h3>
+
+                        <!-- Display Messages -->
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} text-center">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+
+                        <!-- Profile Update Form -->
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <!-- Name & Email -->
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Name</label>
+                                    <input type="text" class="form-control form-control-lg rounded-pill" name="name"
+                                        value="{{ User.name }}" placeholder="Enter Seller Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Email</label>
+                                    <input type="email" class="form-control form-control-lg rounded-pill" name="email"
+                                        value="{{ User.email }}" placeholder="Enter Email">
+                                </div>
+                            </div>
+
+                            <!-- Phone & Profile Picture -->
+                            <div class="row g-3 mt-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Phone</label>
+                                    <input type="text" class="form-control form-control-lg rounded-pill" name="phone"
+                                        value="{{ User.phone }}" placeholder="Enter Phone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Profile Picture</label>
+                                    <input type="file" class="form-control form-control-lg rounded-pill" name="pic">
+                                </div>
+                            </div>
+
+                            <!-- Address Section -->
+                            <h5 class="mt-4 text-secondary fw-semibold">Address Details</h5>
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Address Line 1</label>
+                                    <input type="text" class="form-control form-control-lg rounded-pill"
+                                        name="addressline1" value="{{ User.addressline1 }}" placeholder="Address 1">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Address Line 2</label>
+                                    <input type="text" class="form-control form-control-lg rounded-pill"
+                                        name="addressline2" value="{{ User.addressline2 }}" placeholder="Address 2">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Address Line 3</label>
+                                    <input type="text" class="form-control form-control-lg rounded-pill"
+                                        name="addressline3" value="{{ User.addressline3 }}" placeholder="Address 3">
+                                </div>
+                            </div>
+
+                            <!-- Pin, City & State -->
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-3">
+                                    <label class="form-label fw-semibold">Pin</label>
+                                    <input type="text" class="form-control form-control-lg rounded-pill" name="pin"
+                                        value="{{ User.pin }}" placeholder="Pin">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">City</label>
+                                    <input type="text" class="form-control form-control-lg rounded-pill" name="city"
+                                        value="{{ User.city }}" placeholder="City">
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="form-label fw-semibold">State</label>
+                                    <input type="text" class="form-control form-control-lg rounded-pill" name="state"
+                                        value="{{ User.state }}" placeholder="State">
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit"
+                                class="btn btn-gradient w-100 fw-bold mt-4 py-2 rounded-pill shadow-sm">
+                                Update Profile
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- End Premium Card -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}

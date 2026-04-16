@@ -1,0 +1,727 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+
+  {% block title %}
+  <title>Eshop</title>
+  {% endblock %}
+</head>
+
+
+<body>
+  <!-- Preloader -->
+  <!-- <div id="loader">
+    <div class="spinner"></div>
+  </div> -->
+
+
+  <style>
+    /* Base Icon Style */
+.footer-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  background: rgba(255,255,255,0.08);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glow effect */
+.footer-icon::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  filter: blur(10px);
+  opacity: 0;
+  transition: 0.4s;
+  z-index: -1;
+}
+
+/* Hover Animation */
+.footer-icon:hover {
+  transform: translateY(-5px) scale(1.1);
+}
+
+.footer-icon:hover::before {
+  opacity: 1;
+}
+
+/* Brand Colors */
+.facebook:hover {
+  background: #1877f2;
+  box-shadow: 0 0 15px #1877f2;
+}
+
+.instagram:hover {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366);
+  box-shadow: 0 0 15px #e6683c;
+}
+
+.twitter:hover {
+  background: #1da1f2;
+  box-shadow: 0 0 15px #1da1f2;
+}
+
+.linkedin:hover {
+  background: #0077b5;
+  box-shadow: 0 0 15px #0077b5;
+}
+    .footer-links a {
+      text-decoration: none !important;
+
+      color: #bbb;
+
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #ffd700;
+
+      padding-left: 5px;
+
+    }
+
+    .custom-navbar {
+      background: linear-gradient(45deg, rgba(13, 110, 253, 0.95), rgba(102, 16, 242, 0.95));
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-brand img {
+      border-radius: 8px;
+    }
+
+    .nav-link {
+      color: #ddd !important;
+      font-weight: 500;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: #fff !important;
+    }
+
+    /* underline hover effect */
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background: #0d6efd;
+      left: 0;
+      bottom: 0;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+
+    .search-box {
+      background: white;
+      border-radius: 50px;
+      padding: 5px 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .search-box:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      box-shadow: none;
+      border-radius: 50px;
+    }
+
+    .search-btn {
+      border-radius: 50px;
+      background: linear-gradient(45deg, #0d6efd, #6610f2);
+      color: white;
+      border: none;
+      padding: 6px 18px;
+      transition: 0.3s;
+    }
+
+    .search-btn:hover {
+      background: linear-gradient(45deg, #6610f2, #0d6efd);
+    }
+
+
+    .nav-item .badge {
+      font-size: 10px;
+      position: relative;
+      top: -8px;
+      left: -5px;
+    }
+
+
+    .dropdown-menu {
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .dropdown-item:hover {
+      background: #0d6efd;
+      color: white;
+    }
+  </style>
+
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+    <div class="container">
+
+
+      <style>
+        .logo-box {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .logo-img {
+          height: 45px;
+          border-radius: 10px;
+          padding: 4px;
+          background: linear-gradient(45deg, #0d6efd, #6610f2);
+          transition: 0.3s;
+        }
+
+        .logo-img:hover {
+          transform: scale(1.1) rotate(2deg);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-text {
+          font-weight: 700;
+          font-size: 20px;
+          color: white;
+          letter-spacing: 1px;
+        }
+
+        .logo-text span {
+          color: #ffd700;
+          /* gold highlight */
+        }
+
+        .navbar-nav .nav-item {
+          margin: 0 8px;
+        }
+
+        .navbar-nav .nav-link {
+          color: #fff !important;
+          font-weight: 500;
+          padding: 6px 14px;
+          border-radius: 20px;
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+
+        .navbar-nav .nav-link:hover {
+          background: rgba(255, 255, 255, 0.15);
+          color: #ffd700 !important;
+          transform: translateY(-2px);
+        }
+
+
+        .navbar-nav .nav-link.active {
+          background: linear-gradient(45deg, #0d6efd, #6610f2);
+          color: #fff !important;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .navbar-nav .nav-link::after {
+          content: "";
+          position: absolute;
+          width: 0%;
+          height: 2px;
+          background: #ffd700;
+          left: 50%;
+          bottom: 0;
+          transform: translateX(-50%);
+          transition: 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+          width: 70%;
+        }
+      </style>
+
+      <a class="navbar-brand logo-box" href="/">
+        <img src="{% static 'images/shop1.png' %}" class="logo-img">
+        <span class="logo-text">E<span>Shop</span></span>
+      </a>
+
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+        <!-- LEFT MENU -->
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">🏠 Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">ℹ️ About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shop/All/All/All/">🛍 Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">📞 Contact</a>
+          </li>
+        </ul>
+
+
+        <form class="d-flex mx-3 search-box" action="/shop/All/All/All/" method="post">
+          {% csrf_token %}
+
+          <input class="form-control me-2 search-input" type="search" name="search" placeholder="🔍 Search...">
+
+          <button class="search-btn">Search</button>
+        </form>
+
+
+        <ul class="navbar-nav ms-auto align-items-center">
+
+          <li class="nav-item me-2">
+            <a class="nav-link" href="/cart">
+              🛒 Cart
+            </a>
+          </li>
+
+          {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              👤 {{request.user}}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="/profile">Profile</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/login">🔐 Login</a>
+          </li>
+          {% endif %}
+
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  {% block body %}
+  <br><br><br>
+
+
+  <style>
+    .carousel-container {
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .carousel-img {
+      height: 500px;
+      object-fit: cover;
+      object-position: center;
+      transition: 0.5s;
+      transition: transform 0.7s ease-in-out;
+      filter: brightness(0.9);
+    }
+
+    .carousel-item:hover .carousel-img {
+      transform: scale(1.08);
+      filter: brightness(1);
+    }
+
+
+    .carousel-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+    }
+
+
+    .carousel-caption-custom {
+      position: absolute;
+      top: 50%;
+      left: 8%;
+      transform: translateY(-50%);
+      color: white;
+      z-index: 2;
+    }
+
+    .carousel-caption-custom h2 {
+      font-weight: 700;
+      font-size: 40px;
+    }
+
+    .carousel-caption-custom p {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .carousel-btn {
+      background: linear-gradient(45deg, #0d6efd, #6610f2);
+      border: none;
+      padding: 8px 20px;
+      border-radius: 25px;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .carousel-btn:hover {
+      background: linear-gradient(45deg, #6610f2, #0d6efd);
+    }
+
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      padding: 15px;
+    }
+  </style>
+
+  <div id="carouselExample" class="carousel slide mt-3 carousel-container" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+
+      <div class="carousel-item active">
+        <img src="{% static 'images/shoes1.avif' %}" class="d-block w-100 carousel-img">
+
+        <div class="carousel-overlay"></div>
+
+        <div class="carousel-caption-custom">
+          <h2>🔥 Latest Shoes Collection</h2>
+          <p>Upgrade your style with trending footwear</p>
+          <a href="/shop/All/All/All/" class="carousel-btn">Shop Now</a>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img src="{% static 'images/shoes2.avif' %}" class="d-block w-100 carousel-img">
+
+        <div class="carousel-overlay"></div>
+
+        <div class="carousel-caption-custom">
+          <h2>👟 Comfort Meets Style</h2>
+          <p>Best deals on premium brands</p>
+          <a href="/shop/All/All/All/" class="carousel-btn">Explore</a>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img src="{% static 'images/shoes3.avif' %}" class="d-block w-100 carousel-img">
+
+        <div class="carousel-overlay"></div>
+
+        <div class="carousel-caption-custom">
+          <h2>💥 Big Discounts</h2>
+          <p>Grab up to 50% OFF today</p>
+          <a href="/shop/All/All/All/" class="carousel-btn">Buy Now</a>
+        </div>
+      </div>
+
+    </div>
+
+
+    <button class="carousel-control-prev" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+
+  </div>
+
+
+  <style>
+    .section-title {
+      background: linear-gradient(45deg, #0d6efd, #6610f2);
+      border-radius: 10px;
+      letter-spacing: 1px;
+    }
+
+    .product-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-img {
+      height: 220px;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.05);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      height: 40px;
+      overflow: hidden;
+    }
+
+    .price {
+      font-size: 15px;
+    }
+
+    .old-price {
+      color: #888;
+      font-size: 13px;
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #dc3545;
+      color: white;
+      padding: 3px 8px;
+      font-size: 12px;
+      border-radius: 5px;
+    }
+
+    .cart-btn {
+      border-radius: 25px;
+      background: linear-gradient(45deg, #0d6efd, #6610f2);
+      border: none;
+      transition: 0.3s;
+    }
+
+    .cart-btn:hover {
+      background: linear-gradient(45deg, #6610f2, #0d6efd);
+    }
+  </style>
+
+  <h5 class="text-light text-center p-2 mt-3 section-title">🛍 Product Section</h5>
+
+  <div class="container mt-3">
+    <div class="row g-4">
+
+      {% for i in Products %}
+      <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+
+        <div class="card h-100 shadow-sm product-card">
+
+
+          <span class="discount-badge">{{i.discount}}% OFF</span>
+
+          {% if i.pic1 %}
+          <img src="{{i.pic1.url}}" class="card-img-top product-img">
+          {% else %}
+          <img src="{% static 'images/noimage.jpg' %}" class="card-img-top product-img">
+          {% endif %}
+
+          <div class="card-body d-flex flex-column text-center">
+
+            <h6 class="card-title">{{i.name}}</h6>
+
+            <p class="mb-1 price">
+              <span class="old-price"><strike>₹{{i.basePrice}}</strike></span><br>
+              <span class="fw-bold text-success">₹{{i.finalPrice}}</span>
+            </p>
+
+            <p class="text-danger small fw-bold">Save {{i.discount}}%</p>
+
+            <a href="/singleProduct/{{i.id}}/" class="btn cart-btn mt-auto text-light">
+              🛒 Add to Cart
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  {% endblock %}
+
+
+  <style>
+    .footer {
+      background: linear-gradient(45deg, #0d0d0d, #1a1a2e);
+      color: #fff;
+    }
+
+    .footer p {
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+
+    .newsletter-box {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .newsletter-input {
+      border-radius: 30px;
+      border: none;
+      padding: 10px;
+      outline: none;
+    }
+
+    .newsletter-btn {
+      border-radius: 30px;
+      background: linear-gradient(45deg, #0d6efd, #6610f2);
+      border: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .newsletter-btn:hover {
+      background: linear-gradient(45deg, #6610f2, #0d6efd);
+    }
+
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+  </style>
+
+  <footer class="footer mt-4 pt-4">
+
+    <div class="container">
+
+      <!-- TOP SECTION -->
+      <div class="row text-start gy-4">
+
+        <!-- Logo + Description -->
+        <div class="col-lg-4 col-md-6">
+          <div class="d-flex align-items-center mb-3">
+            <img src="{% static 'images/shop1.png' %}" style="height:45px; border-radius:10px;">
+            <h5 class="ms-2 mb-0 fw-bold text-light">
+              E<span class="text-warning">Shop</span>
+            </h5>
+          </div>
+
+          <p style="font-size:14px; color:#bbb; line-height:1.7;">
+            Your one-stop online store for trendy shoes and fashion.
+            We provide quality products at the best prices with fast delivery.
+          </p>
+
+          <!-- Social Media -->
+          <div class="mt-3 d-flex gap-2">
+            <a href="#" class="footer-icon facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="footer-icon instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="footer-icon twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="footer-icon linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-lg-2 col-md-6">
+          <h6 class="footer-title mb-3">Quick Links</h6>
+          <ul class="list-unstyled footer-links">
+            <li><a href="/">🏠 Home</a></li>
+            <li><a href="/about">ℹ️ About</a></li>
+            <li><a href="/shop/All/All/All/">🛍 Shop</a></li>
+            <li><a href="/contact">📞 Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Account -->
+        <div class="col-lg-2 col-md-6">
+          <h6 class="footer-title mb-3">Account</h6>
+          <ul class="list-unstyled footer-links">
+            <li><a href="/login">🔐 Login</a></li>
+            <li><a href="/cart">🛒 Cart</a></li>
+            <li><a href="/profile">👤 Profile</a></li>
+            <li><a href="/logout">🚪 Logout</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="col-lg-4 col-md-6">
+          <h6 class="footer-title mb-3">📩 Newsletter</h6>
+
+          <div class="newsletter-box">
+            <form action="/newslatter/" method="post">
+              {% csrf_token %}
+
+              <input type="email" class="form-control mb-3 newsletter-input" name="email"
+                placeholder="Enter your email...">
+
+              <button class="btn newsletter-btn w-100">
+                Subscribe Now 🚀
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DIVIDER -->
+      <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+
+      <!-- BOTTOM -->
+      <div class="text-center">
+        <p class="mb-0" style="font-size:13px; color:#aaa;">
+          © 2026 <span class="fw-bold text-light">eshop.com</span> | All Rights Reserved
+        </p>
+      </div>
+
+    </div>
+
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load cart %}
+
+{% block title %}
+<title>Eshop | Cart Page</title>
+{% endblock %}
+
+{% block body %}
+<br><br><br>
+
+<div class="container">
+
+    <!-- Title -->
+    <h4 class="text-center fw-bold mb-4" style="letter-spacing:1px;">
+        🛒 Your Shopping Cart
+    </h4>
+
+    <div class="row">
+        
+        <!-- CART ITEMS -->
+        <div class="col-lg-8">
+
+            {% for i in Products %}
+            <div class="card mb-3 shadow-sm border-0 rounded-4 p-3">
+                <div class="row align-items-center">
+
+                    <!-- Image -->
+                    <div class="col-md-3 text-center">
+                        {% if i.pic1 %}
+                        <img src="{{i.pic1.url}}" class="img-fluid rounded-3" style="height:120px; object-fit:cover;">
+                        {% else %}
+                        <img src="{% static 'images/noimage.jpg' %}" class="img-fluid rounded-3" style="height:120px;">
+                        {% endif %}
+                    </div>
+
+                    <!-- Details -->
+                    <div class="col-md-5">
+                        <h6 class="fw-bold mb-1">{{i.name}}</h6>
+                        <small class="text-muted">Color: {{i.color}}</small><br>
+                        <small class="text-muted">Size: {{i.size}}</small><br>
+                        <span class="fw-bold text-success">&#8377;{{i.finalPrice}}</span>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="col-md-2 text-center">
+                        <div class="d-flex justify-content-center align-items-center">
+
+                            <a href="/update-cart/{{i.id}}/1" class="btn btn-light border rounded-circle px-2">
+                                -
+                            </a>
+
+                            <span class="mx-2 fw-bold">
+                                {{request|cartQty:i.id}}
+                            </span>
+
+                            <a href="/update-cart/{{i.id}}/2" class="btn btn-light border rounded-circle px-2">
+                                +
+                            </a>
+
+                        </div>
+                    </div>
+
+                    <!-- Total -->
+                    <div class="col-md-2 text-end">
+                        <p class="fw-bold mb-2">&#8377;{{request|cartTotal:i.id}}</p>
+
+                        <a href="/remove-from-cart/{{i.id}}/" 
+                           class="btn btn-sm btn-outline-danger rounded-pill">
+                           Remove
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="col-lg-4">
+
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+
+                <h5 class="fw-bold mb-3">Order Summary</h5>
+
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Total</span>
+                    <span class="fw-bold">&#8377;{{Total}}</span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Shipping</span>
+                    <span class="fw-bold">&#8377;{{Shipping}}</span>
+                </div>
+
+                <hr>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold">Final Amount</span>
+                    <span class="fw-bold text-success">&#8377;{{Final}}</span>
+                </div>
+
+                {% if request|showCheckButton:Final %}
+    <th colspan="2" class="text-center">
+        <a href="/checkout/" 
+           class="btn btn-gradient btn-lg w-100 fw-bold text-white shadow-sm" 
+           style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); border-radius: 12px; padding: 12px 0; transition: transform 0.2s;">
+           ✅ Proceed to Checkout
+        </a>
+    </th>
+{% else %}
+    <th colspan="2" class="text-center">
+        <a href="/shop/All/All/All/" 
+           class="btn btn-outline-primary btn-lg w-100 fw-bold shadow-sm" 
+           style="border-radius: 12px; padding: 12px 0; transition: transform 0.2s;">
+           🛒 No Items in Cart! Shop Now
+        </a>
+    </th>
+{% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

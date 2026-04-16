@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block body %}
+
+<style>
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    .bg-gradient-success {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media (max-width: 576px) {
+        .card {
+            padding: 3rem 1.5rem;
+        }
+
+        .card svg {
+            width: 50px;
+            height: 50px;
+        }
+    }
+</style>
+
+
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg rounded-4 p-5 text-center" style="max-width: 600px; background: #ffffff;">
+        <!-- Success Icon -->
+        <div class="mb-4">
+            <div class="d-inline-block p-4 rounded-circle bg-gradient-success shadow-sm" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="white" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                    <path d="M2.5 8a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0zm6.354-2.646a.5.5 0 0 0-.708.708L8.793 8.5l-1.147 1.146a.5.5 0 0 0 .708.708l1.5-1.5a.5.5 0 0 0 0-.708l-1.5-1.5z"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="fw-bold mb-3" style="font-size: 2rem; color: #4b6cb7; background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); -webkit-background-clip: text; color: transparent;">
+            🎉 Order Placed Successfully!
+        </h2>
+
+        <!-- Description -->
+        <p class="text-muted mb-4" style="font-size: 1.1rem;">Check your email for the order confirmation and details.</p>
+
+        <!-- Continue Shopping Button -->
+        <a href="/" class="btn btn-primary btn-lg shadow-sm" style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); border: none; transition: transform 0.2s;">
+            Continue Shopping
+        </a>
+    </div>
+</div>
+{% endblock %}
